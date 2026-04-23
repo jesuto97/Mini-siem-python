@@ -1,0 +1,28 @@
+#se ha creado e instalado una  libreria para generar gráficos
+''matplotib''
+
+
+import matplotlib.pyplot as plt
+
+# Obtener datos
+cursor.execute("""
+SELECT ip, COUNT(*) 
+FROM logs 
+GROUP BY ip
+""")
+
+data = cursor.fetchall()
+
+ips = [row[0] for row in data]
+counts = [row[1] for row in data]
+
+# Crear gráfico
+plt.bar(ips, counts)
+plt.xlabel("IP")
+plt.ylabel("Número de eventos")
+plt.title("Actividad por IP (Mini SIEM)")
+
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.show()
